@@ -1,1111 +1,970 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FeelTwo — Couple Monogram Tattoos & Jewellery</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="FeelTwo — See your home in new colours, sofas, curtains and tiles before you buy. AI home visualizer on WhatsApp, built for India."/>
+<title>FeelTwo — AI Home Visualizer on WhatsApp</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 <style>
 :root {
-  --gold: #c8a84a;
-  --gold-dim: #6a5a3a;
-  --gold-pale: rgba(200,168,74,0.12);
-  --bg: #0c0b09;
-  --bg2: #131108;
-  --bg3: #1a1810;
-  --cream: #f5f0e8;
-  --cream-dim: #e8e0d0;
-  --border: #2a2518;
-  --text: #f0e8d0;
-  --text-dim: #6a5a3a;
+  --green: #00a884;
+  --dark-green: #008069;
+  --light-green: #e8f5e9;
+  --primary: #7c3aed;
+  --primary-dark: #5b21b6;
+  --primary-light: #ede9fe;
+  --accent: #f59e0b;
+  --text: #111b21;
+  --muted: #667781;
+  --border: #e9edef;
+  --bg: #f7f8fa;
+  --white: #ffffff;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 html { scroll-behavior: smooth; }
-
 body {
-  background: var(--bg);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   color: var(--text);
-  font-family: 'Cormorant Garamond', Georgia, serif;
+  background: var(--white);
   overflow-x: hidden;
-  cursor: default;
+  line-height: 1.55;
 }
 
-/* ── NAV ── */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  padding: 18px 40px;
-  display: flex; align-items: center; justify-content: space-between;
-  background: linear-gradient(180deg, rgba(12,11,9,0.95) 0%, transparent 100%);
-  backdrop-filter: blur(8px);
+/* ══ NAV ══ */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: white;
+  border-bottom: 1px solid var(--border);
+  padding: 0 40px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
-.nav-brand {
-  font-family: 'Cinzel', serif;
-  font-size: 1.1rem;
-  letter-spacing: 0.5em;
-  color: var(--gold);
+.nav-logo {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text);
   text-decoration: none;
+  letter-spacing: -0.5px;
 }
-.nav-links { display: flex; gap: 32px; }
+.nav-logo span { color: var(--primary); }
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+}
 .nav-links a {
-  font-size: 0.65rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--text-dim);
   text-decoration: none;
-  transition: color 0.3s;
+  color: var(--muted);
+  font-weight: 500;
+  font-size: 15px;
+  transition: color 0.2s;
 }
-.nav-links a:hover { color: var(--gold); }
+.nav-links a:hover { color: var(--text); }
 .nav-cta {
-  font-size: 0.6rem;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--gold);
-  border: 1px solid rgba(200,168,74,0.4);
-  padding: 8px 18px;
-  text-decoration: none;
-  transition: background 0.3s, border-color 0.3s;
+  background: var(--green);
+  color: white !important;
+  padding: 9px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  transition: background 0.2s;
 }
-.nav-cta:hover { background: var(--gold-pale); border-color: var(--gold); }
-
-/* ── HERO ── */
-#hero {
-  min-height: 100vh;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  text-align: center;
-  padding: 100px 24px 60px;
-  position: relative;
-  overflow: hidden;
-}
-
-/* animated background monogram */
-#hero-bg-svg {
-  position: absolute;
-  width: 600px; height: 600px;
-  opacity: 0.04;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  animation: slowRotate 60s linear infinite;
-}
-@keyframes slowRotate { to { transform: translate(-50%,-50%) rotate(360deg); } }
-
-.hero-eyebrow {
-  font-size: 0.6rem;
-  letter-spacing: 0.5em;
-  text-transform: uppercase;
-  color: var(--text-dim);
-  margin-bottom: 24px;
-  animation: fadeUp 1s ease both;
-  animation-delay: 0.2s;
-}
-.hero-title {
-  font-family: 'Cinzel', serif;
-  font-size: clamp(2.8rem, 8vw, 6rem);
-  font-weight: 400;
-  color: var(--gold);
-  letter-spacing: 0.3em;
-  line-height: 1.1;
-  animation: fadeUp 1s ease both;
-  animation-delay: 0.4s;
-}
-.hero-divider {
-  width: 180px; height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold), transparent);
-  margin: 28px auto;
-  animation: fadeUp 1s ease both;
-  animation-delay: 0.6s;
-}
-.hero-sub {
-  font-size: clamp(1rem, 2.5vw, 1.3rem);
-  font-style: italic;
-  color: var(--text-dim);
-  max-width: 480px;
-  line-height: 1.8;
-  animation: fadeUp 1s ease both;
-  animation-delay: 0.7s;
-}
-.hero-sub em { color: var(--gold); font-style: normal; }
-.hero-actions {
-  display: flex; gap: 16px; flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 44px;
-  animation: fadeUp 1s ease both;
-  animation-delay: 0.9s;
-}
-.btn-primary {
-  font-family: 'Cinzel', serif;
-  font-size: 0.65rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--bg);
-  background: var(--gold);
+.nav-cta:hover { background: var(--dark-green); }
+.mobile-menu-btn {
+  display: none;
+  background: none;
   border: none;
-  padding: 14px 32px;
+  font-size: 24px;
   cursor: pointer;
-  text-decoration: none;
-  transition: opacity 0.3s, transform 0.2s;
-  display: inline-block;
-}
-.btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
-.btn-ghost {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 0.75rem;
-  letter-spacing: 0.25em;
-  color: var(--gold);
-  border: 1px solid rgba(200,168,74,0.35);
-  padding: 14px 32px;
-  cursor: pointer;
-  text-decoration: none;
-  transition: background 0.3s;
-  display: inline-block;
-}
-.btn-ghost:hover { background: var(--gold-pale); }
-
-.scroll-hint {
-  margin-top: 60px;
-  font-size: 0.55rem;
-  letter-spacing: 0.4em;
-  color: var(--text-dim);
-  text-transform: uppercase;
-  animation: fadeUp 1s ease both, scrollBob 2s ease-in-out 2s infinite;
-  animation-delay: 1.2s, 1.2s;
-}
-@keyframes scrollBob {
-  0%,100% { transform: translateY(0); }
-  50% { transform: translateY(6px); }
 }
 
-/* ── SECTION BASE ── */
-section { padding: 100px 24px; }
-.section-inner { max-width: 1100px; margin: 0 auto; }
-.section-label {
-  font-size: 0.58rem;
-  letter-spacing: 0.5em;
-  text-transform: uppercase;
-  color: var(--text-dim);
-  margin-bottom: 12px;
+/* ══ HERO ══ */
+.hero {
+  text-align: center;
+  padding: 80px 24px 60px;
+  background: linear-gradient(180deg, #faf8ff 0%, #ffffff 100%);
+  position: relative;
 }
-.section-title {
-  font-family: 'Cinzel', serif;
-  font-size: clamp(1.6rem, 4vw, 2.8rem);
-  font-weight: 400;
-  color: var(--gold);
-  letter-spacing: 0.15em;
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--primary-light);
+  color: var(--primary-dark);
+  padding: 8px 16px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+.badge-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--primary);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.1); }
+}
+.hero h1 {
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  line-height: 1.1;
+  margin-bottom: 24px;
+}
+.hero h1 .accent { color: var(--primary); }
+.hero h1 .accent2 { color: var(--green); }
+.hero-sub {
+  font-size: 18px;
+  color: var(--muted);
+  max-width: 640px;
+  margin: 0 auto 36px;
+  line-height: 1.6;
+}
+.hero-btns {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
   margin-bottom: 16px;
 }
-.section-line {
-  width: 80px; height: 1px;
-  background: linear-gradient(90deg, var(--gold), transparent);
-  margin-bottom: 32px;
-}
-.section-body {
-  font-size: 1.05rem;
-  font-style: italic;
-  color: var(--text-dim);
-  line-height: 1.9;
-  max-width: 540px;
-}
-
-/* ── WHAT IS THIS ── */
-#what { background: var(--bg2); }
-.what-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  padding: 14px 28px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 16px;
+  text-decoration: none;
+  transition: all 0.2s;
+  display: inline-flex;
   align-items: center;
-  margin-top: 60px;
-}
-@media(max-width:700px){ .what-grid { grid-template-columns:1fr; gap:40px; } }
-
-.what-visual {
-  background: var(--cream);
-  padding: 48px;
-  display: flex; align-items: center; justify-content: center;
-  position: relative;
-}
-.what-visual svg { width: 100%; max-width: 260px; }
-.what-visual-label {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  font-family: 'Cinzel', serif;
-  font-size: 0.62rem; letter-spacing: 0.4em;
-  color: #6a5a3a; text-align: center;
-  padding: 10px; background: #ede8e0;
-  border-top: 1px solid #d8d0c0;
-}
-.what-points { display: flex; flex-direction: column; gap: 28px; }
-.what-point { display: flex; gap: 20px; align-items: flex-start; }
-.point-num {
-  font-family: 'Cinzel', serif;
-  font-size: 0.6rem;
-  color: var(--gold);
-  border: 1px solid var(--border);
-  width: 30px; height: 30px;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-  letter-spacing: 0.1em;
-  margin-top: 2px;
-}
-.point-text h4 {
-  font-family: 'Cinzel', serif;
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
-  color: var(--text);
-  margin-bottom: 6px;
-  font-weight: 400;
-}
-.point-text p {
-  font-size: 0.9rem;
-  font-style: italic;
-  color: var(--text-dim);
-  line-height: 1.8;
-}
-
-/* ── PORTFOLIO ── */
-#portfolio { background: var(--bg); }
-.portfolio-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2px;
-  margin-top: 60px;
-}
-.portfolio-item {
-  background: var(--cream);
-  position: relative;
-  overflow: hidden;
-  aspect-ratio: 1;
+  gap: 8px;
+  border: none;
   cursor: pointer;
 }
-.portfolio-item svg {
-  width: 100%; height: 100%;
-  padding: 40px;
+.btn-primary:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 16px rgba(124,58,237,0.25);
 }
-.portfolio-item .p-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(180deg, transparent 50%, rgba(12,11,9,0.88) 100%);
-  display: flex; flex-direction: column;
-  justify-content: flex-end;
-  padding: 24px;
-  opacity: 1;
+.btn-secondary {
+  background: var(--green);
+  color: white;
+  padding: 14px 28px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 16px;
+  text-decoration: none;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
-.p-names {
-  font-family: 'Cinzel', serif;
-  font-size: 0.85rem;
-  letter-spacing: 0.4em;
-  color: var(--gold);
-  margin-bottom: 4px;
+.btn-secondary:hover {
+  background: var(--dark-green);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 16px rgba(0,168,132,0.25);
 }
-.p-type {
-  font-size: 0.6rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--text-dim);
+.hero-note {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 48px;
 }
-.portfolio-item .p-tag {
-  position: absolute; top: 16px; right: 16px;
-  font-size: 0.5rem; letter-spacing: 0.3em; text-transform: uppercase;
-  background: var(--bg2);
-  color: var(--text-dim);
-  padding: 4px 10px;
+.hero-note span { color: var(--text); font-weight: 600; }
+
+.hero-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.hero-card {
+  background: white;
   border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.hero-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+.hero-card-icon {
+  font-size: 26px;
+  flex-shrink: 0;
+}
+.hero-card-title {
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 2px;
+}
+.hero-card-sub {
+  font-size: 12px;
+  color: var(--muted);
 }
 
-/* ── HOW IT WORKS ── */
-#process { background: var(--bg2); }
-.process-steps {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1px;
-  margin-top: 60px;
-  border: 1px solid var(--border);
+@media(max-width: 700px) {
+  .hero-cards { grid-template-columns: repeat(2, 1fr); }
 }
-.process-step {
-  padding: 40px 28px;
-  background: var(--bg2);
-  border-right: 1px solid var(--border);
+
+/* ══ STATS BAR ══ */
+.stats-bar {
+  background: var(--text);
+  color: white;
+  padding: 24px 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.9);
+}
+.stat-icon { font-size: 20px; }
+
+/* ══ SECTION BASE ══ */
+section { padding: 80px 24px; }
+.section-inner { max-width: 1100px; margin: 0 auto; }
+.text-center { text-align: center; }
+.section-label {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 16px;
+}
+.section-title {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 800;
+  letter-spacing: -1px;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+.section-title .accent { color: var(--primary); }
+.section-sub {
+  font-size: 17px;
+  color: var(--muted);
+  max-width: 600px;
+  margin: 0 auto 56px;
+}
+
+/* ══ WHY FEELTWO ══ */
+.why-section { background: white; }
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+.why-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px 24px;
+  text-align: center;
+  transition: all 0.2s;
+}
+.why-card:hover {
+  border-color: var(--primary);
+  background: white;
+  box-shadow: 0 12px 24px rgba(0,0,0,0.04);
+}
+.why-card-icon {
+  font-size: 36px;
+  margin-bottom: 16px;
+}
+.why-card-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.why-card-desc {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+@media(max-width: 700px) { .why-grid { grid-template-columns: 1fr; } }
+
+/* ══ HOW IT WORKS ══ */
+.how-section { background: var(--bg); }
+.how-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 48px;
   position: relative;
 }
-.process-step:last-child { border-right: none; }
-.step-num {
-  font-family: 'Cinzel', serif;
-  font-size: 2.5rem;
-  color: var(--border);
-  font-weight: 400;
-  line-height: 1;
+.how-step {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 28px 20px;
+  text-align: center;
+  position: relative;
+}
+.how-num {
+  width: 40px;
+  height: 40px;
+  background: var(--primary);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  margin: 0 auto 16px;
+  font-size: 16px;
+}
+.how-title {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.how-desc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+@media(max-width: 800px) { .how-steps { grid-template-columns: repeat(2, 1fr); } }
+@media(max-width: 480px) { .how-steps { grid-template-columns: 1fr; } }
+
+/* ══ MODES ══ */
+.modes-section { background: white; }
+.modes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 48px;
+}
+.mode-card {
+  background: linear-gradient(135deg, #faf8ff 0%, #ffffff 100%);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  transition: all 0.2s;
+}
+.mode-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(124,58,237,0.08);
+}
+.mode-icon {
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+.mode-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.mode-desc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+@media(max-width: 800px) { .modes-grid { grid-template-columns: repeat(2, 1fr); } }
+@media(max-width: 480px) { .modes-grid { grid-template-columns: 1fr; } }
+
+/* ══ ABOUT ══ */
+.about-section { background: var(--bg); }
+.about-content {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+}
+.about-content p {
+  font-size: 17px;
+  color: var(--muted);
+  line-height: 1.8;
   margin-bottom: 20px;
 }
-.step-title {
-  font-family: 'Cinzel', serif;
-  font-size: 0.75rem;
-  letter-spacing: 0.2em;
-  color: var(--gold);
-  margin-bottom: 12px;
-  font-weight: 400;
-}
-.step-desc {
-  font-size: 0.88rem;
-  font-style: italic;
-  color: var(--text-dim);
-  line-height: 1.8;
-}
-.step-arrow {
-  position: absolute;
-  right: -14px; top: 50%;
-  transform: translateY(-50%);
-  width: 28px; height: 28px;
-  background: var(--bg3);
-  border: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: center;
-  z-index: 2;
-  font-size: 0.6rem; color: var(--gold);
-}
-@media(max-width:700px){
-  .process-steps { grid-template-columns: 1fr; }
-  .process-step { border-right: none; border-bottom: 1px solid var(--border); }
-  .step-arrow { display: none; }
-}
 
-/* ── PRICING ── */
-#pricing { background: var(--bg); }
-.pricing-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1px;
-  margin-top: 60px;
+/* ══ FAQ ══ */
+.faq-section { background: white; }
+.faq-list {
+  max-width: 720px;
+  margin: 48px auto 0;
 }
-.price-card {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  padding: 40px 32px;
-  position: relative;
-  transition: border-color 0.3s;
-}
-.price-card:hover { border-color: rgba(200,168,74,0.4); }
-.price-card.featured {
-  border-color: rgba(200,168,74,0.35);
-  background: linear-gradient(180deg, rgba(200,168,74,0.06) 0%, var(--bg2) 100%);
-}
-.price-tag {
-  position: absolute; top: -1px; right: 24px;
-  font-size: 0.45rem; letter-spacing: 0.3em; text-transform: uppercase;
-  background: var(--gold); color: var(--bg);
-  padding: 4px 12px;
-}
-.price-name {
-  font-family: 'Cinzel', serif;
-  font-size: 0.7rem; letter-spacing: 0.3em;
-  color: var(--text-dim); text-transform: uppercase;
-  margin-bottom: 16px; font-weight: 400;
-}
-.price-amount {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 3rem; color: var(--gold);
-  line-height: 1; margin-bottom: 6px;
-}
-.price-currency { font-size: 1.2rem; vertical-align: super; }
-.price-note {
-  font-size: 0.72rem; font-style: italic;
-  color: var(--text-dim); margin-bottom: 28px;
-}
-.price-features { list-style: none; margin-bottom: 32px; }
-.price-features li {
-  font-size: 0.85rem; font-style: italic;
-  color: var(--text-dim); padding: 8px 0;
-  border-bottom: 1px solid var(--border);
-  display: flex; align-items: center; gap: 10px;
-}
-.price-features li::before {
-  content: '—'; color: var(--gold); font-style: normal; font-size: 0.7rem;
-}
-.price-cta {
-  width: 100%; padding: 13px;
-  font-family: 'Cinzel', serif;
-  font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase;
-  background: none; cursor: pointer;
-  transition: all 0.3s;
-}
-.price-card.featured .price-cta {
-  background: var(--gold); color: var(--bg); border: none;
-}
-.price-card:not(.featured) .price-cta {
-  color: var(--gold); border: 1px solid rgba(200,168,74,0.35);
-}
-.price-card:not(.featured) .price-cta:hover { background: var(--gold-pale); }
-
-/* ── TESTIMONIALS ── */
-#love { background: var(--bg2); }
-.testimonials {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 24px;
-  margin-top: 60px;
-}
-.testimonial {
-  padding: 32px;
-  border: 1px solid var(--border);
-  position: relative;
-}
-.testimonial::before {
-  content: '\201C';
-  position: absolute; top: 16px; left: 20px;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 4rem; color: var(--border);
-  line-height: 1;
-}
-.t-text {
-  font-size: 0.95rem; font-style: italic;
-  color: var(--text-dim); line-height: 1.9;
-  padding-top: 20px; margin-bottom: 20px;
-}
-.t-names {
-  font-family: 'Cinzel', serif;
-  font-size: 0.62rem; letter-spacing: 0.3em;
-  color: var(--gold);
-}
-.t-stars {
-  color: var(--gold); font-size: 0.6rem; margin-bottom: 8px;
-}
-
-/* ── ORDER FORM ── */
-#order { background: var(--bg); }
-.order-wrap {
-  max-width: 640px; margin: 60px auto 0;
-  border: 1px solid var(--border);
-  padding: 48px;
-  background: var(--bg2);
-}
-.form-row { margin-bottom: 24px; }
-.form-label {
-  display: block;
-  font-size: 0.58rem; letter-spacing: 0.35em; text-transform: uppercase;
-  color: var(--text-dim); margin-bottom: 8px;
-}
-.form-input, .form-select, .form-textarea {
-  width: 100%; padding: 12px 16px;
-  background: var(--bg3); border: 1px solid var(--border);
-  color: var(--text); font-family: 'Cormorant Garamond', serif;
-  font-size: 1rem; outline: none;
-  transition: border-color 0.3s;
-}
-.form-input:focus, .form-select:focus, .form-textarea:focus {
-  border-color: rgba(200,168,74,0.5);
-}
-.form-input::placeholder, .form-textarea::placeholder { color: var(--text-dim); font-style: italic; }
-.form-select option { background: var(--bg3); }
-.form-textarea { resize: vertical; min-height: 100px; }
-.form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-@media(max-width:500px){ .form-row-2 { grid-template-columns: 1fr; } }
-.form-submit {
-  width: 100%; padding: 16px;
-  background: var(--gold); border: none;
-  font-family: 'Cinzel', serif;
-  font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase;
-  color: var(--bg); cursor: pointer;
-  transition: opacity 0.3s, transform 0.2s;
-}
-.form-submit:hover { opacity: 0.88; transform: translateY(-1px); }
-.form-note {
-  text-align: center; margin-top: 16px;
-  font-size: 0.7rem; font-style: italic; color: var(--text-dim);
-}
-
-/* ── FAQ ── */
-#faq { background: var(--bg2); }
-.faq-list { margin-top: 48px; max-width: 700px; }
 .faq-item {
-  border-bottom: 1px solid var(--border);
-  padding: 20px 0;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  transition: border-color 0.2s;
 }
+.faq-item:hover { border-color: var(--primary); }
 .faq-q {
-  font-family: 'Cinzel', serif;
-  font-size: 0.78rem; letter-spacing: 0.15em;
-  color: var(--text); cursor: pointer;
-  display: flex; justify-content: space-between; align-items: center;
-  font-weight: 400;
+  padding: 18px 22px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
 }
-.faq-q span { color: var(--gold); font-size: 1rem; transition: transform 0.3s; }
+.faq-q span {
+  color: var(--primary);
+  font-size: 22px;
+  font-weight: 300;
+  transition: transform 0.3s;
+  flex-shrink: 0;
+  margin-left: 16px;
+}
 .faq-q.open span { transform: rotate(45deg); }
 .faq-a {
-  font-size: 0.9rem; font-style: italic; color: var(--text-dim);
-  line-height: 1.8; max-height: 0; overflow: hidden;
+  padding: 0 22px;
+  max-height: 0;
+  overflow: hidden;
   transition: max-height 0.4s ease, padding 0.3s;
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.7;
 }
-.faq-a.open { max-height: 200px; padding-top: 14px; }
+.faq-a.open {
+  padding: 0 22px 18px;
+  max-height: 400px;
+}
 
-/* ── FOOTER ── */
-footer {
-  background: var(--bg2);
-  border-top: 1px solid var(--border);
-  padding: 60px 40px 32px;
+/* ══ CONTACT ══ */
+.contact-section {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: white;
+  padding: 80px 24px;
+  text-align: center;
 }
-.footer-inner {
-  max-width: 1100px; margin: 0 auto;
-  display: grid; grid-template-columns: 2fr 1fr 1fr;
-  gap: 48px; margin-bottom: 48px;
+.contact-section .section-title { color: white; }
+.contact-section .section-label { color: rgba(255,255,255,0.85); }
+.contact-section .section-sub { color: rgba(255,255,255,0.85); }
+.contact-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 800px;
+  margin: 48px auto 0;
 }
-@media(max-width:700px){
-  .footer-inner { grid-template-columns: 1fr; gap: 32px; }
-  nav { padding: 16px 20px; }
-  .nav-links { display: none; }
+.contact-card {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 14px;
+  padding: 24px;
+  text-decoration: none;
+  color: white;
+  transition: all 0.2s;
 }
-.footer-brand {
-  font-family: 'Cinzel', serif;
-  font-size: 1.3rem; letter-spacing: 0.5em;
-  color: var(--gold); margin-bottom: 16px;
+.contact-card:hover {
+  background: rgba(255,255,255,0.15);
+  transform: translateY(-2px);
 }
-.footer-desc {
-  font-size: 0.88rem; font-style: italic;
-  color: var(--text-dim); line-height: 1.9;
-  max-width: 300px;
+.contact-card-icon { font-size: 30px; margin-bottom: 10px; }
+.contact-card-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.85;
+  margin-bottom: 4px;
 }
-.footer-col h5 {
-  font-family: 'Cinzel', serif;
-  font-size: 0.6rem; letter-spacing: 0.3em;
-  text-transform: uppercase; color: var(--gold);
-  margin-bottom: 16px; font-weight: 400;
+.contact-card-value { font-weight: 600; font-size: 15px; word-break: break-word; }
+@media(max-width: 700px) { .contact-cards { grid-template-columns: 1fr; } }
+
+/* ══ BUSINESS INFO BLOCK (visible to Meta reviewers) ══ */
+.business-info {
+  background: var(--text);
+  color: white;
+  padding: 48px 24px;
 }
-.footer-col a {
-  display: block; font-size: 0.85rem; font-style: italic;
-  color: var(--text-dim); text-decoration: none;
-  margin-bottom: 10px; transition: color 0.3s;
+.business-info-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
 }
-.footer-col a:hover { color: var(--gold); }
+.bi-block { font-size: 14px; }
+.bi-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+.bi-value {
+  font-weight: 500;
+  line-height: 1.6;
+}
+.bi-value a {
+  color: white;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,0.3);
+}
+.bi-value a:hover { border-color: white; }
+@media(max-width: 800px) { .business-info-inner { grid-template-columns: repeat(2, 1fr); } }
+@media(max-width: 480px) { .business-info-inner { grid-template-columns: 1fr; } }
+
+/* ══ FOOTER ══ */
+.footer {
+  background: #0b141a;
+  color: rgba(255,255,255,0.85);
+  padding: 56px 40px 24px;
+}
+.footer-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 48px;
+}
+.footer-brand-name {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 12px;
+  color: white;
+}
+.footer-brand-name span { color: var(--primary); }
+.footer-brand-desc {
+  font-size: 14px;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.7;
+  max-width: 360px;
+  margin-bottom: 20px;
+}
+.footer-wa-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--green);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+.footer-wa-btn:hover { background: var(--dark-green); }
+.footer-col-title {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: white;
+}
+.footer-links {
+  list-style: none;
+}
+.footer-links li { margin-bottom: 10px; }
+.footer-links a {
+  color: rgba(255,255,255,0.65);
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: white; }
 .footer-bottom {
-  max-width: 1100px; margin: 0 auto;
-  border-top: 1px solid var(--border);
+  max-width: 1100px;
+  margin: 40px auto 0;
   padding-top: 24px;
-  display: flex; justify-content: space-between; align-items: center;
-  flex-wrap: wrap; gap: 12px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+  flex-wrap: wrap;
+  gap: 12px;
 }
-.footer-copy {
-  font-size: 0.65rem; font-style: italic;
-  color: var(--text-dim);
-}
-.footer-ig {
-  font-size: 0.62rem; letter-spacing: 0.2em;
-  color: var(--gold); text-decoration: none;
-}
-
-/* ── ANIMATIONS ── */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.reveal {
-  opacity: 0; transform: translateY(30px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-.reveal.visible { opacity: 1; transform: translateY(0); }
-
-/* ── GOLD ACCENT LINE ── */
-.gold-rule {
-  width: 100%; height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold), transparent);
-  margin: 0;
+@media(max-width: 700px) {
+  .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+  .nav-links { display: none; }
+  .nav { padding: 0 20px; }
 }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <a href="#" class="nav-brand">FeelTwo</a>
-  <div class="nav-links">
-    <a href="#portfolio">Portfolio</a>
-    <a href="#process">How It Works</a>
-    <a href="#pricing">Pricing</a>
-    <a href="#order">Order</a>
-  </div>
-  <a href="#order" class="nav-cta">Get Yours</a>
+<!-- ══ NAV ══ -->
+<nav class="nav">
+  <a href="/" class="nav-logo">Feel<span>Two</span></a>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#modes">What You Can Try</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="https://wa.me/919822253333" target="_blank" class="nav-cta">💬 Try Free</a></li>
+  </ul>
 </nav>
 
-<!-- HERO -->
-<section id="hero">
-  <!-- background geometric SVG -->
-  <svg id="hero-bg-svg" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
-    <polygon points="250,40 40,420 460,420" fill="none" stroke="#c8a84a" stroke-width="1"/>
-    <polygon points="250,120 100,380 400,380" fill="none" stroke="#c8a84a" stroke-width="0.5"/>
-    <line x1="250" y1="40" x2="250" y2="420" stroke="#c8a84a" stroke-width="0.5"/>
-    <line x1="40" y1="420" x2="400" y2="140" stroke="#c8a84a" stroke-width="0.5"/>
-    <line x1="460" y1="420" x2="100" y2="140" stroke="#c8a84a" stroke-width="0.5"/>
-    <circle cx="250" cy="250" r="140" fill="none" stroke="#c8a84a" stroke-width="0.5"/>
-  </svg>
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-badge">
+    <div class="badge-dot"></div>
+    100% Free to Start · No App Download
+  </div>
 
-  <p class="hero-eyebrow">Couple Monograms · Tattoo & Jewellery</p>
-  <h1 class="hero-title">FeelTwo</h1>
-  <div class="hero-divider"></div>
+  <h1>
+    See Your <span class="accent">Home</span><br>
+    Before You <span class="accent2">Change It</span>
+  </h1>
+
   <p class="hero-sub">
-    Both your names, <em>hidden inside one geometry.</em><br>
-    A secret only you two know.
+    Send a photo of your room, wall, sofa or door on WhatsApp.
+    AI shows you how it would look in different colours, fabrics or styles —
+    in seconds. Built for Indian homes, no app needed.
   </p>
-  <div class="hero-actions">
-    <a href="#portfolio" class="btn-primary">See Designs</a>
-    <a href="#order" class="btn-ghost">Order Yours — ₹49</a>
+
+  <div class="hero-btns">
+    <a class="btn-primary" href="https://wa.me/919822253333" target="_blank">💬 Try Free on WhatsApp</a>
+    <a class="btn-secondary" href="#how">📖 See How It Works</a>
   </div>
-  <p class="scroll-hint">↓ scroll to explore</p>
-</section>
+  <div class="hero-note">✓ Free to try · <span>No credit card</span> · Works on any phone</div>
 
-<div class="gold-rule"></div>
-
-<!-- WHAT IS THIS -->
-<section id="what">
-  <div class="section-inner">
-    <p class="section-label reveal">What is FeelTwo</p>
-    <h2 class="section-title reveal">Two names.<br>One hidden design.</h2>
-    <div class="section-line reveal"></div>
-
-    <div class="what-grid">
-      <div class="what-visual reveal">
-        <!-- Live mini monogram — ANKIT TANVI strokes -->
-        <svg viewBox="123 122 148 152" xmlns="http://www.w3.org/2000/svg" id="hero-mono">
-          <style>
-            .hm { fill:none; stroke:#1a1208; stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; }
-            .hm.gold { stroke:#c8a84a; stroke-width:3.5; animation: goldIn 0.6s ease forwards; }
-            @keyframes goldIn { from{stroke:#1a1208;stroke-width:2.5;} to{stroke:#c8a84a;stroke-width:3.5;} }
-          </style>
-          <path class="hm" id="hm1" d="m 198.33948,131.91882 -32.28782,66.42066 v 0"/>
-          <path class="hm" id="hm2" d="m 198.64698,132.22632 32.90283,66.11316"/>
-          <path class="hm" id="hm3" d="m 166.05166,198.33948 -33.82534,65.80566"/>
-          <path class="hm" id="hm4" d="m 230.93481,197.1953 33.82534,66.72817"/>
-          <path class="hm" id="hm5" d="m 165.68738,198.73788 32.83306,65.44869"/>
-          <path class="hm" id="hm6" d="m 231.59275,198.96628 -33.82534,65.80566"/>
-          <path class="hm" id="hm7" d="m 158.82534,264.29889 79.33579,0.46126"/>
-          <path class="hm" id="hm8" d="m 171.77563,171.34076 h 52.83732"/>
-          <path class="hm" id="hm9" d="M 198.30521,198.56979 198.4375,238.125"/>
-          <text style="font-family:Georgia,serif;font-size:4px;font-style:italic;fill:#1a1208;letter-spacing:1.5px;opacity:0.15" x="198" y="272" text-anchor="middle">FEELTWO.COM</text>
-        </svg>
-        <span class="what-visual-label">ANKIT &amp; TANVI</span>
+  <div class="hero-cards">
+    <div class="hero-card">
+      <div class="hero-card-icon">📱</div>
+      <div>
+        <div class="hero-card-title">On WhatsApp</div>
+        <div class="hero-card-sub">No app download needed</div>
       </div>
-
-      <div class="what-points">
-        <div class="what-point reveal">
-          <div class="point-num">01</div>
-          <div class="point-text">
-            <h4>Hand-drawn in Inkscape</h4>
-            <p>Every design is manually crafted stroke by stroke. Not AI-generated. Not a font. A real geometric drawing.</p>
-          </div>
-        </div>
-        <div class="what-point reveal">
-          <div class="point-num">02</div>
-          <div class="point-text">
-            <h4>Both names, zero extra lines</h4>
-            <p>Every stroke does double duty — hidden letters share geometry. Tap each letter to reveal it.</p>
-          </div>
-        </div>
-        <div class="what-point reveal">
-          <div class="point-num">03</div>
-          <div class="point-text">
-            <h4>Tattoo · Jewellery · Print</h4>
-            <p>Clean SVG file ready for your tattoo artist, jewellery engraver, or to frame and gift.</p>
-          </div>
-        </div>
-        <div class="what-point reveal">
-          <div class="point-num">04</div>
-          <div class="point-text">
-            <h4>Interactive reveal file</h4>
-            <p>Share a private link with your partner — they tap each letter to discover your names hidden inside.</p>
-          </div>
-        </div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-card-icon">🎨</div>
+      <div>
+        <div class="hero-card-title">8 Modes</div>
+        <div class="hero-card-sub">Paint, sofa, tiles & more</div>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-card-icon">⚡</div>
+      <div>
+        <div class="hero-card-title">Seconds Fast</div>
+        <div class="hero-card-sub">AI results instantly</div>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-card-icon">🇮🇳</div>
+      <div>
+        <div class="hero-card-title">Indian Homes</div>
+        <div class="hero-card-sub">Designed for India</div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="gold-rule"></div>
-
-<!-- PORTFOLIO -->
-<section id="portfolio">
-  <div class="section-inner">
-    <p class="section-label reveal">Our Work</p>
-    <h2 class="section-title reveal">Every couple,<br>a unique geometry.</h2>
-    <div class="section-line reveal"></div>
-
-    <div class="portfolio-grid">
-
-      <!-- ANKIT & TANVI -->
-      <div class="portfolio-item reveal">
-        <svg viewBox="123 122 148 152" xmlns="http://www.w3.org/2000/svg">
-          <path fill="none" stroke="#1a1208" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="m 198.33948,131.91882 -32.28782,66.42066 v 0"/>
-          <path fill="none" stroke="#1a1208" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="m 198.64698,132.22632 32.90283,66.11316"/>
-          <path fill="none" stroke="#1a1208" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="m 166.05166,198.33948 -33.82534,65.80566"/>
-          <path fill="none" stroke="#1a1208" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="m 230.93481,197.1953 33.82534,66.72817"/>
-          <path fill="none" stroke="#1a1208" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="m 165.68738,198.73788 32.83306,65.44869"/>
-          <path fill="none" stroke="#1a1208" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="m 231.59275,198.96628 -33.82534,65.80566"/>
-          <path fill="none" stroke="#1a1208" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="m 158.82534,264.29889 79.33579,0.46126"/>
-          <path fill="none" stroke="#1a1208" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="m 171.77563,171.34076 h 52.83732"/>
-          <path fill="none" stroke="#1a1208" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M 198.30521,198.56979 198.4375,238.125"/>
-        </svg>
-        <div class="p-overlay">
-          <div class="p-names">ANKIT · TANVI</div>
-          <div class="p-type">Triangle / Diamond style</div>
-        </div>
-        <div class="p-tag">New</div>
-      </div>
-
-      <!-- ROHAN & NEHA -->
-      <div class="portfolio-item reveal">
-        <svg viewBox="90 115 210 235" xmlns="http://www.w3.org/2000/svg">
-          <path fill="none" stroke="#1a1208" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"
-            d="m 198.73788,131.76713 c -44.35725,26.81729 -88.7145,53.63458 -88.78653,81.90176 -0.072,28.26717 44.13937,57.98304 88.35166,87.69949"
-            transform="matrix(1.0220178,0,0,0.99480078,-4.2574525,0.25610003)"/>
-          <path fill="none" stroke="#1a1208" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"
-            d="m 198.73788,131.76713 c -44.35725,26.81729 -88.7145,53.63458 -88.78653,81.90176 -0.072,28.26717 44.13937,57.98304 88.35166,87.69949"
-            transform="matrix(-1.0220178,0,0,0.99480078,400.26096,0.69097502)"/>
-          <path fill="none" stroke="#1a1208" stroke-width="4" stroke-linecap="round" d="m 197.43326,133.07175 c 0.14496,16.96013 0.28991,33.92026 0.43487,50.88038"/>
-          <path fill="none" stroke="#1a1208" stroke-width="4" stroke-linecap="round" d="m 197.86813,184.82188 c 0.28992,18.98954 0.57983,37.97909 0.86975,56.96863"/>
-          <path fill="none" stroke="#1a1208" stroke-width="4" stroke-linecap="round" d="m 198.73788,242.66026 c 0,18.69962 0,37.39924 0,56.09888"/>
-          <path fill="none" stroke="#1a1208" stroke-width="4" stroke-linecap="round" d="m 198.73788,300.06377 c 0,10.14706 0,20.29415 0,30.44124"/>
-          <path fill="none" stroke="#1a1208" stroke-width="4" stroke-linecap="round" d="m 197.43326,298.32427 c 29.42654,10.14708 58.85308,20.29415 88.27962,30.44123" transform="translate(-1.6817917,0.09429165)"/>
-          <path fill="none" stroke="#1a1208" stroke-width="4" stroke-linecap="round" d="m 198.30301,184.82188 c 21.88871,-0.14496 43.77742,-0.28991 65.66612,-0.43487" transform="translate(-0.52916667,0.52916667)"/>
-          <path fill="none" stroke="#1a1208" stroke-width="4" stroke-linecap="round" d="m 197.86813,186.12651 c -21.88871,0 -43.77742,0 -65.66612,0" transform="translate(1.0583333,-1.0583333)"/>
-          <path fill="none" stroke="#1a1208" stroke-width="4" stroke-linecap="round" d="m 199.17276,242.66026 c 21.74375,-0.14496 43.4875,-0.28992 65.23125,-0.43488" transform="translate(-0.52916667)"/>
-          <path fill="none" stroke="#1a1208" stroke-width="4" stroke-linecap="round" d="m 198.73788,242.66026 c -22.17862,0.14496 -44.35725,0.28991 -66.53587,0.43487"/>
-        </svg>
-        <div class="p-overlay">
-          <div class="p-names">ROHAN · NEHA</div>
-          <div class="p-type">Circle / Eye style</div>
-        </div>
-      </div>
-
-      <!-- MEERA -->
-      <div class="portfolio-item reveal">
-        <svg viewBox="50 115 300 300" xmlns="http://www.w3.org/2000/svg">
-          <path fill="none" stroke="#1a1208" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" d="M 66.971,397.476 L 66.101,132.202"/>
-          <path fill="none" stroke="#1a1208" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" d="M 66.101,132.202 L 198.303,264.404"/>
-          <path fill="none" stroke="#1a1208" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" d="M 198.303,264.404 L 330.070,134.376"/>
-          <path fill="none" stroke="#1a1208" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" d="M 330.070,134.376 L 331.375,396.606"/>
-          <path fill="none" stroke="#1a1208" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" d="m 133.07175,199.60763 65.23126,-66.53588"/>
-          <path fill="none" stroke="#1a1208" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" d="M 66.535876,265.70863 196.56351,265.27376"/>
-          <path fill="none" stroke="#1a1208" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" d="m 132.202,266.57839 67.40563,130.4625"/>
-          <path fill="none" stroke="#1a1208" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" d="m 265.27376,330.93988 63.05688,65.23127"/>
-        </svg>
-        <div class="p-overlay">
-          <div class="p-names">MEERA</div>
-          <div class="p-type">M·E·E·R·A — Single name</div>
-        </div>
-      </div>
-
-      <!-- Coming Soon placeholder -->
-      <div class="portfolio-item reveal" style="background:#131108; display:flex; align-items:center; justify-content:center;">
-        <div style="text-align:center;">
-          <div style="font-family:'Cinzel',serif;font-size:0.6rem;letter-spacing:0.4em;color:var(--text-dim);margin-bottom:12px;">YOUR NAMES</div>
-          <div style="width:60px;height:1px;background:var(--border);margin:0 auto 12px;"></div>
-          <div style="font-size:0.75rem;font-style:italic;color:var(--text-dim);">Could be here</div>
-        </div>
-      </div>
-
-    </div>
+<!-- ══ STATS BAR ══ -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <span class="stat-icon">🇮🇳</span>
+    <span class="stat-text">Built for India</span>
   </div>
-</section>
+  <div class="stat-item">
+    <span class="stat-icon">🤖</span>
+    <span class="stat-text">AI Powered</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-icon">📱</span>
+    <span class="stat-text">WhatsApp Native</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-icon">⚡</span>
+    <span class="stat-text">Fast Results</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-icon">🔓</span>
+    <span class="stat-text">Free to Start</span>
+  </div>
+</div>
 
-<div class="gold-rule"></div>
-
-<!-- PROCESS -->
-<section id="process">
+<!-- ══ WHY FEELTWO ══ -->
+<section class="why-section" id="features">
   <div class="section-inner">
-    <p class="section-label reveal">The Process</p>
-    <h2 class="section-title reveal">Simple. Personal.<br>Delivered in 24 hours.</h2>
-    <div class="section-line reveal"></div>
+    <div class="text-center">
+      <div class="section-label">Why FeelTwo</div>
+      <div class="section-title">Visualize Before You<br><span class="accent">Spend or Renovate</span></div>
+      <div class="section-sub">No more guessing whether that paint colour will look good. See it first.</div>
+    </div>
 
-    <div class="process-steps">
-      <div class="process-step reveal">
-        <div class="step-num">01</div>
-        <div class="step-title">Share Your Names</div>
-        <div class="step-desc">Tell us both names. We study the letters and find the geometry that hides them both perfectly.</div>
-        <div class="step-arrow">→</div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-card-icon">🎯</div>
+        <div class="why-card-title">Decide With Confidence</div>
+        <div class="why-card-desc">See exactly how your wall, sofa, or floor will look in a new colour or style — before spending money on paint or furniture.</div>
       </div>
-      <div class="process-step reveal">
-        <div class="step-num">02</div>
-        <div class="step-title">We Draw by Hand</div>
-        <div class="step-desc">Every stroke is placed manually in Inkscape. No templates, no AI. A unique design just for you.</div>
-        <div class="step-arrow">→</div>
+      <div class="why-card">
+        <div class="why-card-icon">📲</div>
+        <div class="why-card-title">All on WhatsApp</div>
+        <div class="why-card-desc">No app to download, no signup, no learning curve. Just send a photo and get an AI result in seconds. Works on any smartphone.</div>
       </div>
-      <div class="process-step reveal">
-        <div class="step-num">03</div>
-        <div class="step-title">Pay ₹49</div>
-        <div class="step-desc">One-time payment via Razorpay. Secure, instant. No subscription, no hidden charges.</div>
-        <div class="step-arrow">→</div>
-      </div>
-      <div class="process-step reveal">
-        <div class="step-num">04</div>
-        <div class="step-title">Receive Your Files</div>
-        <div class="step-desc">SVG file + interactive reveal HTML delivered to WhatsApp or email within 24 hours.</div>
+      <div class="why-card">
+        <div class="why-card-icon">🏡</div>
+        <div class="why-card-title">Made for Indian Homes</div>
+        <div class="why-card-desc">Indian-style bungalows, apartments, traditional and modern interiors. Curated colour palettes for Indian preferences.</div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="gold-rule"></div>
-
-<!-- PRICING -->
-<section id="pricing">
+<!-- ══ HOW IT WORKS ══ -->
+<section class="how-section" id="how">
   <div class="section-inner">
-    <p class="section-label reveal">Pricing</p>
-    <h2 class="section-title reveal">Honest. Simple.<br>Worth every rupee.</h2>
-    <div class="section-line reveal"></div>
+    <div class="text-center">
+      <div class="section-label">How It Works</div>
+      <div class="section-title">From Photo to AI Result<br><span class="accent">in Under a Minute</span></div>
+      <div class="section-sub">No signup. No app. Just open WhatsApp and start.</div>
+    </div>
 
-    <div class="pricing-grid">
-      <div class="price-card reveal">
-        <div class="price-name">Digital Download</div>
-        <div class="price-amount"><span class="price-currency">₹</span>49</div>
-        <div class="price-note">One-time · Instant delivery</div>
-        <ul class="price-features">
-          <li>Custom SVG monogram file</li>
-          <li>Interactive reveal HTML</li>
-          <li>WhatsApp / email delivery</li>
-          <li>Tattoo-ready clean lines</li>
-          <li>Unlimited personal use</li>
-        </ul>
-        <button class="price-cta" onclick="document.getElementById('order').scrollIntoView({behavior:'smooth'})">Order Now</button>
+    <div class="how-steps">
+      <div class="how-step">
+        <div class="how-num">1</div>
+        <div class="how-title">Open WhatsApp</div>
+        <div class="how-desc">Save our number or tap "Try Free" — opens a chat with FeelTwo.</div>
       </div>
-
-      <div class="price-card featured reveal">
-        <div class="price-tag">Most Popular</div>
-        <div class="price-name">Couple Gift Package</div>
-        <div class="price-amount"><span class="price-currency">₹</span>99</div>
-        <div class="price-note">For both of you · Perfect gift</div>
-        <ul class="price-features">
-          <li>Everything in Digital</li>
-          <li>Print-ready high-res PNG</li>
-          <li>Jewellery-engraving version</li>
-          <li>2 revisions included</li>
-          <li>Priority 12-hour delivery</li>
-          <li>Framing-ready PDF</li>
-        </ul>
-        <button class="price-cta" onclick="document.getElementById('order').scrollIntoView({behavior:'smooth'})">Get the Package</button>
+      <div class="how-step">
+        <div class="how-num">2</div>
+        <div class="how-title">Choose a Mode</div>
+        <div class="how-desc">Wall paint, sofa, curtains, tiles, doors, exterior — pick what you want to try.</div>
       </div>
-
-      <div class="price-card reveal">
-        <div class="price-name">Solo Monogram</div>
-        <div class="price-amount"><span class="price-currency">₹</span>39</div>
-        <div class="price-note">One name · Your initials</div>
-        <ul class="price-features">
-          <li>Single name geometry</li>
-          <li>SVG + PNG files</li>
-          <li>Tattoo or jewellery use</li>
-          <li>24-hour delivery</li>
-        </ul>
-        <button class="price-cta" onclick="document.getElementById('order').scrollIntoView({behavior:'smooth'})">Order Solo</button>
+      <div class="how-step">
+        <div class="how-num">3</div>
+        <div class="how-title">Send a Photo</div>
+        <div class="how-desc">A daylight photo of your room, wall, or house. The clearer the better.</div>
+      </div>
+      <div class="how-step">
+        <div class="how-num">4</div>
+        <div class="how-title">Get AI Result</div>
+        <div class="how-desc">In seconds, see your space transformed. Try again with different choices.</div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="gold-rule"></div>
-
-<!-- LOVE / TESTIMONIALS -->
-<section id="love">
+<!-- ══ MODES ══ -->
+<section class="modes-section" id="modes">
   <div class="section-inner">
-    <p class="section-label reveal">What Couples Say</p>
-    <h2 class="section-title reveal">The secret is<br>always the best part.</h2>
-    <div class="section-line reveal"></div>
+    <div class="text-center">
+      <div class="section-label">What You Can Try</div>
+      <div class="section-title">8 Different Modes,<br><span class="accent">Endless Possibilities</span></div>
+      <div class="section-sub">Whatever you want to change in your home — try it first.</div>
+    </div>
 
-    <div class="testimonials">
-      <div class="testimonial reveal">
-        <div class="t-stars">★★★★★</div>
-        <div class="t-text">We got it tattooed on our wrists. Nobody knows our names are hidden in there except us. That's exactly what we wanted.</div>
-        <div class="t-names">Rohan &amp; Neha · Mumbai</div>
+    <div class="modes-grid">
+      <div class="mode-card">
+        <div class="mode-icon">🎨</div>
+        <div class="mode-title">Wall Paint</div>
+        <div class="mode-desc">See your walls in any colour. Single shade or two-colour accent walls.</div>
       </div>
-      <div class="testimonial reveal">
-        <div class="t-stars">★★★★★</div>
-        <div class="t-text">The reveal file is so beautiful. I sent it to her without saying anything. She cried when she tapped each letter. Best ₹49 I've ever spent.</div>
-        <div class="t-names">Ankit · Pune</div>
+      <div class="mode-card">
+        <div class="mode-icon">🏡</div>
+        <div class="mode-title">Exterior Color</div>
+        <div class="mode-desc">Repaint your bungalow exterior. Curated Indian-style palettes.</div>
       </div>
-      <div class="testimonial reveal">
-        <div class="t-stars">★★★★★</div>
-        <div class="t-text">Got it engraved on matching gold rings. The jeweller was amazed at how clean the lines were. It looks like a proper logo.</div>
-        <div class="t-names">Meera &amp; Arjun · Bangalore</div>
+      <div class="mode-card">
+        <div class="mode-icon">🪟</div>
+        <div class="mode-title">Curtains</div>
+        <div class="mode-desc">See new curtains on your window. Pick colour, style, fabric.</div>
+      </div>
+      <div class="mode-card">
+        <div class="mode-icon">🟫</div>
+        <div class="mode-title">Floor Tiles</div>
+        <div class="mode-desc">Try new tile patterns. Marble, wood, terrazzo — any look.</div>
+      </div>
+      <div class="mode-card">
+        <div class="mode-icon">🛋️</div>
+        <div class="mode-title">Sofa &amp; Furniture</div>
+        <div class="mode-desc">Place new sofa, chair, table, bed in your room.</div>
+      </div>
+      <div class="mode-card">
+        <div class="mode-icon">🚪</div>
+        <div class="mode-title">Doors</div>
+        <div class="mode-desc">Try a new door style without replacing anything.</div>
+      </div>
+      <div class="mode-card">
+        <div class="mode-icon">🌿</div>
+        <div class="mode-title">Garden Plants</div>
+        <div class="mode-desc">Add new plants and flowers to your garden space.</div>
+      </div>
+      <div class="mode-card">
+        <div class="mode-icon">💡</div>
+        <div class="mode-title">Lighting</div>
+        <div class="mode-desc">Swap in new light fixtures and see the ambience change.</div>
+      </div>
+      <div class="mode-card">
+        <div class="mode-icon">⚡</div>
+        <div class="mode-title">Smart Pairs</div>
+        <div class="mode-desc">Designer-curated colour combinations in one tap.</div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="gold-rule"></div>
-
-<!-- ORDER -->
-<section id="order">
+<!-- ══ ABOUT ══ -->
+<section class="about-section" id="about">
   <div class="section-inner">
-    <p class="section-label reveal" style="text-align:center;">Place Your Order</p>
-    <h2 class="section-title reveal" style="text-align:center;">Your names.<br>One geometry.</h2>
-    <div class="section-line reveal" style="margin:16px auto 0;"></div>
-
-    <div class="order-wrap reveal">
-      <div class="form-row-2">
-        <div class="form-row">
-          <label class="form-label">First Name *</label>
-          <input class="form-input" type="text" placeholder="e.g. Ankit" id="name1">
-        </div>
-        <div class="form-row">
-          <label class="form-label">Second Name *</label>
-          <input class="form-input" type="text" placeholder="e.g. Tanvi" id="name2">
-        </div>
-      </div>
-      <div class="form-row">
-        <label class="form-label">Package</label>
-        <select class="form-select form-input" id="pkg">
-          <option value="digital">Digital Download — ₹49</option>
-          <option value="couple">Couple Gift Package — ₹99</option>
-          <option value="solo">Solo Monogram — ₹39</option>
-        </select>
-      </div>
-      <div class="form-row">
-        <label class="form-label">WhatsApp / Email for delivery *</label>
-        <input class="form-input" type="text" placeholder="+91 98765 43210 or email@example.com" id="contact">
-      </div>
-      <div class="form-row">
-        <label class="form-label">Style preference (optional)</label>
-        <input class="form-input" type="text" placeholder="e.g. circle, triangle, minimal, diamond…" id="style">
-      </div>
-      <div class="form-row">
-        <label class="form-label">Any special notes</label>
-        <textarea class="form-textarea form-input" placeholder="Anniversary date, occasion, preferences…" id="notes"></textarea>
-      </div>
-      <button class="form-submit" onclick="handleOrder()">Pay ₹49 &amp; Order via Razorpay →</button>
-      <p class="form-note">Delivered within 24 hours · SVG + Interactive HTML · Secure payment</p>
+    <div class="text-center">
+      <div class="section-label">About FeelTwo</div>
+      <div class="section-title">Built in <span class="accent">Pune,</span><br>for Indian Homes</div>
+    </div>
+    <div class="about-content">
+      <p>FeelTwo is an AI home visualizer built for Indian homeowners.
+      We started with a simple idea: most people are scared to repaint or change something because they can't picture how it'll look. Renovation is expensive and mistakes are permanent.</p>
+      <p>FeelTwo lets you try changes virtually first. Send a photo, pick what you want to change, and our AI shows you the result in seconds — right inside WhatsApp.</p>
+      <p>No app to download. No signup. Just open WhatsApp and start.</p>
     </div>
   </div>
 </section>
 
-<div class="gold-rule"></div>
-
-<!-- FAQ -->
-<section id="faq">
+<!-- ══ FAQ ══ -->
+<section class="faq-section" id="faq">
   <div class="section-inner">
-    <p class="section-label reveal">Questions</p>
-    <h2 class="section-title reveal">Frequently asked.</h2>
-    <div class="section-line reveal"></div>
+    <div class="text-center">
+      <div class="section-label">FAQ</div>
+      <div class="section-title">Common Questions</div>
+    </div>
 
     <div class="faq-list">
-      <div class="faq-item reveal">
-        <div class="faq-q" onclick="toggleFaq(this)">Can any names be turned into a monogram? <span>+</span></div>
-        <div class="faq-a">Yes — we work with any Indian or international names. Some letter combinations are more complex, but we've never had to refuse an order. Longer names may take slightly more time.</div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Is FeelTwo really free? <span>+</span></div>
+        <div class="faq-a">Yes — you can try FeelTwo free on WhatsApp. Just send a photo and a mode. No credit card needed.</div>
       </div>
-      <div class="faq-item reveal">
-        <div class="faq-q" onclick="toggleFaq(this)">What files will I receive? <span>+</span></div>
-        <div class="faq-a">You receive a clean SVG file (scalable to any size, perfect for tattoo artists and jewellers), an interactive HTML reveal file to share with your partner, and optionally a high-res PNG for printing.</div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">How does it work? <span>+</span></div>
+        <div class="faq-a">Open WhatsApp, message our number, choose a mode (paint, sofa, tiles, etc.), send a photo of your space. Our AI processes the image and sends back the result in seconds. You can try different colours or styles as many times as you want.</div>
       </div>
-      <div class="faq-item reveal">
-        <div class="faq-q" onclick="toggleFaq(this)">Is it really hand-drawn, not AI? <span>+</span></div>
-        <div class="faq-a">100% hand-drawn in Inkscape, stroke by stroke. We tried AI for a while — the results were unpredictable. Every design here is a human decision about geometry and proportion.</div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Do I need to download an app? <span>+</span></div>
+        <div class="faq-a">No. FeelTwo works entirely inside WhatsApp. If you have WhatsApp on your phone, you have FeelTwo.</div>
       </div>
-      <div class="faq-item reveal">
-        <div class="faq-q" onclick="toggleFaq(this)">Can I use it for my tattoo / jewellery? <span>+</span></div>
-        <div class="faq-a">Yes, that's exactly what it's made for. The SVG lines are clean and precise — any tattoo artist or jewellery engraver can work directly from the file. We recommend sharing the SVG, not a screenshot.</div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">What kind of photos work best? <span>+</span></div>
+        <div class="faq-a">Daylight photos with the full wall, room, or area visible work best. Avoid blurry, dark, or heavily zoomed photos. For exteriors, a clear daylight shot of your house. For walls, a straight-on photo of the room.</div>
       </div>
-      <div class="faq-item reveal">
-        <div class="faq-q" onclick="toggleFaq(this)">What if I'm not happy with the design? <span>+</span></div>
-        <div class="faq-a">Couple Gift Package includes 2 revisions. For Digital Download, we offer 1 revision if the geometry doesn't feel right. We want you to love it.</div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">How accurate are the results? <span>+</span></div>
+        <div class="faq-a">FeelTwo uses advanced AI to give realistic previews. Results are visualization aids — final paint or fabric colour may vary slightly based on lighting in your real room. Always confirm with a sample swatch before final purchase.</div>
       </div>
-      <div class="faq-item reveal">
-        <div class="faq-q" onclick="toggleFaq(this)">How do I share the reveal file with my partner? <span>+</span></div>
-        <div class="faq-a">Open the HTML file in Chrome on your phone, or we can host it for you at a private feeltwo.com/reveal/your-names link. Your partner taps each letter of your name to reveal it glowing in gold.</div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Are my photos private? <span>+</span></div>
+        <div class="faq-a">Yes. Your photos are processed for AI generation and not shared. See our <a href="privacy.html">Privacy Policy</a> for details on data handling.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">What languages does FeelTwo support? <span>+</span></div>
+        <div class="faq-a">FeelTwo supports English, Hindi, and Marathi for instructions and chat. Just message in any of these languages and the bot will understand.</div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="gold-rule"></div>
+<!-- ══ CONTACT ══ -->
+<section class="contact-section" id="contact">
+  <div class="section-inner">
+    <div class="section-label">Get in Touch</div>
+    <div class="section-title">Try FeelTwo Today</div>
+    <div class="section-sub">Send us a message on WhatsApp — or reach out by email.</div>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
+    <div class="contact-cards">
+      <a class="contact-card" href="https://wa.me/919822253333" target="_blank">
+        <div class="contact-card-icon">💬</div>
+        <div class="contact-card-label">WhatsApp</div>
+        <div class="contact-card-value">+91 98222 53333</div>
+      </a>
+      <a class="contact-card" href="mailto:nilesh53333@gmail.com">
+        <div class="contact-card-icon">✉️</div>
+        <div class="contact-card-label">Email</div>
+        <div class="contact-card-value">nilesh53333@gmail.com</div>
+      </a>
+      <a class="contact-card" href="https://feeltwo.com" target="_blank">
+        <div class="contact-card-icon">🌐</div>
+        <div class="contact-card-label">Website</div>
+        <div class="contact-card-value">feeltwo.com</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ BUSINESS INFO BLOCK (visible to Meta reviewers) ══ -->
+<section class="business-info" aria-label="Business Information">
+  <div class="business-info-inner">
+    <div class="bi-block">
+      <div class="bi-label">Business Name</div>
+      <div class="bi-value">FEELTWO</div>
+    </div>
+    <div class="bi-block">
+      <div class="bi-label">Registered Address</div>
+      <div class="bi-value">117 A Shukrawar Peth,<br>Amrai Apartment,<br>Satara, Maharashtra<br>415002, India</div>
+    </div>
+    <div class="bi-block">
+      <div class="bi-label">Contact</div>
+      <div class="bi-value">
+        <a href="tel:+919923099230">+91 99230 99230</a><br>
+        <a href="mailto:nilesh53333@gmail.com">nilesh53333@gmail.com</a>
+      </div>
+    </div>
+    <div class="bi-block">
+      <div class="bi-label">MSME Registration</div>
+      <div class="bi-value">UDYAM-MH-30-0190090</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer class="footer">
+  <div class="footer-grid">
     <div>
-      <div class="footer-brand">FeelTwo</div>
-      <p class="footer-desc">Geometric monogram designs for Indian couples. Both names, one hidden geometry. Tattoo, jewellery, or just a beautiful secret between two people.</p>
+      <div class="footer-brand-name">Feel<span>Two</span> 🏠</div>
+      <div class="footer-brand-desc">AI-powered home visualizer on WhatsApp. Built in Maharashtra for Indian homes. See your space in new colours, fabrics, and styles — before you commit.</div>
+      <a class="footer-wa-btn" href="https://wa.me/919822253333" target="_blank">💬 Chat Now</a>
     </div>
-    <div class="footer-col">
-      <h5>Designs</h5>
-      <a href="#portfolio">ANKIT &amp; TANVI</a>
-      <a href="#portfolio">ROHAN &amp; NEHA</a>
-      <a href="#portfolio">MEERA</a>
-      <a href="#order">Order Custom</a>
+    <div>
+      <div class="footer-col-title">Quick Links</div>
+      <ul class="footer-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#how">How It Works</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
     </div>
-    <div class="footer-col">
-      <h5>Contact</h5>
-      <a href="https://instagram.com/feel.two" target="_blank">@feel.two on Instagram</a>
-      <a href="#order">WhatsApp Order</a>
-      <a href="#faq">FAQ</a>
+    <div>
+      <div class="footer-col-title">Legal</div>
+      <ul class="footer-links">
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms of Service</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
     </div>
   </div>
   <div class="footer-bottom">
-    <p class="footer-copy">© 2025 FeelTwo · feeltwo.com · feeltwo.in · All designs hand-crafted.</p>
-    <a href="https://instagram.com/feel.two" target="_blank" class="footer-ig">@feel.two</a>
+    <div>© 2026 FeelTwo · feeltwo.com · All rights reserved.</div>
+    <div>Made in Pune, Maharashtra 🇮🇳</div>
   </div>
 </footer>
 
 <script>
-// Scroll reveal
-const observer = new IntersectionObserver(function(entries){
-  entries.forEach(function(e){
-    if(e.isIntersecting){ e.target.classList.add('visible'); }
-  });
-}, { threshold: 0.12 });
-document.querySelectorAll('.reveal').forEach(function(el){ observer.observe(el); });
-
-// FAQ toggle
 function toggleFaq(el) {
   el.classList.toggle('open');
   var ans = el.nextElementSibling;
   ans.classList.toggle('open');
-}
-
-// Hero monogram animation — letters light up in sequence
-var heroSeq = [
-  ['hm1','hm2','hm8'],        // A
-  ['hm3','hm5','hm6'],        // N
-  ['hm5','hm6','hm7'],        // K
-  ['hm8','hm7','hm9'],        // I
-  ['hm8','hm9'],              // T
-];
-var heroIdx = 0;
-function heroTick() {
-  document.querySelectorAll('[id^="hm"]').forEach(function(p){
-    p.classList.remove('gold');
-    p.style.stroke = '#1a1208';
-    p.style.strokeWidth = '2.5';
-  });
-  var ids = heroSeq[heroIdx];
-  ids.forEach(function(id){
-    var el = document.getElementById(id);
-    if(el){ el.style.stroke = '#c8a84a'; el.style.strokeWidth = '3.5'; }
-  });
-  heroIdx = (heroIdx + 1) % heroSeq.length;
-}
-heroTick();
-setInterval(heroTick, 1400);
-
-// Order handler (Razorpay placeholder)
-function handleOrder() {
-  var n1 = document.getElementById('name1').value.trim();
-  var n2 = document.getElementById('name2').value.trim();
-  var contact = document.getElementById('contact').value.trim();
-  if (!n1 || !contact) {
-    alert('Please enter at least the first name and your contact details.');
-    return;
-  }
-  var pkg = document.getElementById('pkg').value;
-  var amounts = { digital: 4900, couple: 9900, solo: 3900 };
-  var labels = { digital: 'Digital Download ₹49', couple: 'Couple Gift Package ₹99', solo: 'Solo Monogram ₹39' };
-  // Razorpay integration stub — replace key_id with your actual key
-  alert('Razorpay payment for ' + labels[pkg] + '\nNames: ' + n1 + (n2 ? ' & ' + n2 : '') + '\n\nConnect your Razorpay Key ID to activate payments.');
-  // Uncomment and add your Razorpay Key ID to activate:
-  /*
-  var options = {
-    key: 'YOUR_RAZORPAY_KEY_ID',
-    amount: amounts[pkg],
-    currency: 'INR',
-    name: 'FeelTwo',
-    description: labels[pkg] + ' — ' + n1 + (n2 ? ' & ' + n2 : ''),
-    handler: function(response) {
-      alert('Payment successful! Order ID: ' + response.razorpay_payment_id + '\nWe will deliver to: ' + contact + ' within 24 hours.');
-    },
-    prefill: { contact: contact },
-    theme: { color: '#c8a84a' }
-  };
-  new Razorpay(options).open();
-  */
 }
 </script>
 </body>
