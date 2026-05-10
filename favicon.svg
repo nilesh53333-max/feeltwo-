@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 280" width="512" height="512">
+  <title>FeelTwo</title>
+
+  <!-- house + chat bubble silhouette in WhatsApp green -->
+  <path d="M 70 100
+           L 140 50
+           L 210 100
+           L 210 200
+           Q 210 220 190 220
+           L 110 220
+           L 95 245
+           L 102 220
+           Q 70 220 70 200 Z"
+        fill="#25D366"
+        stroke="#1a1a1a"
+        stroke-width="8"
+        stroke-linejoin="round"/>
+
+  <!-- single bold door (no windows - they disappear at small sizes) -->
+  <rect x="120" y="150" width="40" height="70" rx="4" fill="#ffffff"/>
+</svg>
